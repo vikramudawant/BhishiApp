@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<h3 class="mb-4 border-bottom pb-3">&star; Create/Update Bhishi</h3>
+			
+			<form action="" th:action="@{/createBhishi}" th:object="${bhishi}" method="post" id="bhishiForm">
+				<input type="hidden" th:field="*{id}">
+				<div class="form-group row">
+					<label for="name" class="col-lg-3">Name</label>
+					<div class="col-lg-6">
+						<input type="text" th:field="*{name}" class="form-control" />
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+					</div>		
+				</div>
+				<div class="form-group row">
+					<label for="noOfMembers" class="col-lg-3">Number of Members</label>
+					<div class="col-lg-6">
+						<input type="text" th:field="*{noOfMembers}" class="form-control" />
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('noOfMembers')}" th:errors="*{noOfMembers}" class="text-danger"></p>
+						<span id="membersStatus" class="text-danger"></span>
+					</div>			
+				</div>
+				<div class="form-group row">
+					<label for="amountPerPerson" class="col-lg-3">Amount per Person</label>
+					<div class="col-lg-6">
+						<input type="text" th:field="*{amountPerPerson}" class="form-control" />
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('amountPerPerson')}" th:errors="*{amountPerPerson}" class="text-danger"></p>
+					</div>			
+				</div>
+				<div class="form-group row">
+					<label for="startDate" class="col-lg-3">Start Date</label>
+					<div class="col-lg-6">
+						<input type="date" th:field="*{startDate}" class="form-control"/>
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></p>
+					</div>	
+				</div>
+				<div class="form-group row">
+					<label for="endDate" class="col-lg-3">End Date</label>
+					<div class="col-lg-6">
+						<input type="date" th:field="*{endDate}" class="form-control" readonly="readonly"/>
+					</div>		
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></p>
+					</div>			
+				</div>
+
+				<div class="form-group row">
+					<label for="isActive" class="col-lg-3">Active Status</label>
+					<div class="col-lg-6">
+						<label><input type="radio" name="isActive" th:value=true checked="checked"> Active</label>
+						<label><input type="radio" name="isActive" th:value=false> Inactive </label>
+					</div>	
+				</div>
+				
+				<div class="row">
+					<div class="offset-3 col-lg-6">
+						<input type="submit" value="Save" class="btn btn-primary">
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
+<script>
+	$(document).ready(function(){
+		$('#startDate').focusin(function(){
+			if($('#noOfMembers').val() < 5){
+				$('#noOfMembers').focus();
+				$('#membersStatus').text('Minimum 5 members required');
+				$(this).attr('readonly','readonly');
+			} else {
+				$('#membersStatus').text('');
+				$(this).removeAttr('readonly');
+			}
+		})
+		
+		$('#startDate').change(function(){
+			var date = new Date($('#startDate').val());
+			
+			var addMonth = parseInt($('#noOfMembers').val());
+			
+			var d = date.setMonth(date.getMonth()+addMonth);
+			
+			var endDate = new Date(d).getFullYear() + '-' + (new Date(d).getMonth()+1) + '-' + '0' + new Date(d).getDate(); 
+			
+			$('#endDate').val(endDate);
+			
+		})
+			
+		
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

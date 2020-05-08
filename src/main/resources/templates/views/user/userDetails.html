@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered">
+					<thead class="bg-info text-white">
+						<tr>
+							<th>Sr. No.</th>
+							<th>Name</th>
+							<th>Mobile</th>
+							<th>Installment Count</th>
+							<th>Rank</th>
+							<th>Paid Amount</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user, count : ${userDetails}">
+							<td th:text="${count.index+1}"></td>
+							<td>
+								<a th:href="@{/memberInstallments(id=${user.id})}" th:text="${user.name}" 
+									title="click here to see all installments"></a>
+							</td>
+							<td th:text="${user.mobile}"></td>
+							<td th:text="${user.installment_count}"></td>
+							<td th:text="${user.rank}"></td>
+							<td th:text="${user.total_amount}"></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

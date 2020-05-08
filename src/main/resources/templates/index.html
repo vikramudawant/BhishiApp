@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-3 dashboard">
+			<div class="row">
+				<div class="col-lg-4">
+					<a th:href="@{/bhishiList}">
+						<div class="card p-0 bhishi-card bg-info">
+							<div class="card-body p-1">
+								<h3 class="text-center border-bottom text-white pt-2 pb-3">Total Bhishi</h3>
+								<h1 class="text-center text-white" th:text="${bhishi}"></h1>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4">
+					<a th:href="@{/memberList}">
+						<div class="card p-0 bhishi-card bg-warning">
+							<div class="card-body p-1">
+								<h3 class="text-center border-bottom text-white pt-2 pb-3">Total Members</h3>
+								<h1 class="text-center text-white" th:text="${members}"></h1>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4">
+					<a th:href="@{/installmentList}">
+						<div class="card p-0 bhishi-card bg-danger">
+							<div class="card-body p-1">
+								<h3 class="text-center border-bottom text-white pt-2 pb-3">Total Installments</h3>
+								<h1 class="text-center text-white" th:text="${installments}"></h1>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

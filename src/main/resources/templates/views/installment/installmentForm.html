@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<h3 class="mb-4 border-bottom pb-3">&star; Create/Update Member</h3>
+			<form th:action="@{/addInstallment}" th:object="${installment}" method="post" id="installmentForm">
+				<input type="hidden" th:field="*{id}">
+				<div class="form-group row">
+					<label for="bhishiId" class="col-lg-3">Bhishi</label>
+					<div class="col-lg-6">
+						<select  class="form-control"  name="bhishiId" id="bhishiId">
+					     
+					    </select>
+					</div>
+					<div class="col-lg-3">
+						<p class="text-danger" th:if="${exist}">Bhishi field is required</p>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="memberId" class="col-lg-3">Member</label>
+					<div class="col-lg-6">
+						<select  class="form-control"  name="memberId" id="memberId">
+					     
+					    </select>
+					</div>
+					<div class="col-lg-3">
+						<p class="text-danger" th:if="${exist}">Member field is required</p>
+					</div>		
+				</div>
+				
+				<div class="form-group row">
+					<label for="installmentAmount" class="col-lg-3">Installment Amount</label>
+					<div class="col-lg-6">
+						<input class="form-control" type="text" th:field="*{installmentAmount}" placeholder="Enter Amount"/>
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('installmentAmount')}" th:errors="*{installmentAmount}" class="text-danger"></p>
+					</div>
+				</div>
+
+				
+				<div class="row">
+					<div class="offset-3 col-lg-6">
+						<input type="submit" value="Pay Amount" class="btn btn-success">
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
+
+<script>
+	/* var href = "/getAllBhishi";
+	$.get(href, function(data, status){
+		$('#bhishiId').html(data);
+	}); */
+	
+	 $.ajax({
+		"url":"/getMemberCompletedBhishi",
+		"type":"GET",
+		"success":function(data){
+			var list = "<option value=''>--Select Bhishi--</option>";
+			if(data){
+				for(var i=0; i< data.length; i++){
+					list += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+				}
+			}
+			$("#bhishiId").html(list);
+			/* console.log(list); */
+		}
+	}); 
+	
+	
+	
+	$("#bhishiId").change(function(){
+		var bhishiId = $(this).val();
+		$.ajax({
+			"url":"/getAllMembers",
+			"type":"GET",
+			"data":{"bhishiId": bhishiId},
+			"success":function(data){
+				var list = "<option value=''>--Select Member--</option>";
+				$("#installmentAmount").val(data[0].bhishi.amountPerPerson);
+				if(data){
+					
+					for(var i=0; i< data.length; i++){
+						list += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+					}
+				}
+				$("#memberId").html(list);
+				/* console.log(list); */
+			}
+		});
+	});
+	
+	
+	
+
+</script>
+
+
+
+
+
+
+

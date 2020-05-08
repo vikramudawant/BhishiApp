@@ -1,0 +1,53 @@
+<header th:fragment="header">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary py-2">
+		<a class="navbar-brand border-right pr-3" href="/">BHISHI-APP</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#headerNavBar" aria-controls="headerNavBar"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="headerNavBar">
+			
+			<ul class="navbar-nav mr-auto">
+				
+				<li class="nav-item active">
+					<a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/}">Dashboard
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="dropdown" href="#">Bhishi</a>
+					<div class="dropdown-menu">
+						<a th:href="@{/createBhishi}" class="dropdown-item">Create Bhishi</a>
+						<a th:href="@{/bhishiList}" class="dropdown-item">List of Bhishi</a>
+					</div>
+				</li>
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="dropdown" href="#">Bhishi Members</a>
+					<div class="dropdown-menu">
+						<a th:href="@{/addMember}" class="dropdown-item">Create Member</a>
+						<a th:href="@{/memberList}" class="dropdown-item">List of Members</a>
+						<a th:href="@{/assignRank}" class="dropdown-item">Assign Rank</a>
+					</div>
+				</li>
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="dropdown" href="#">Installments</a>
+					<div class="dropdown-menu">
+						<a th:href="@{/addInstallment}" class="dropdown-item">Add Installment</a>
+						<a th:href="@{/installmentList}" class="dropdown-item">All Installments</a>
+					</div>
+				</li>
+				<li class="nav-item"><a th:href="@{/paybleList}" sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="#">Payable's List</a></li>
+				<li class="nav-item"><a th:href="@{/userProfile}" sec:authorize="hasRole('ROLE_USER')" class="nav-link" href="#">User Profile</a></li>
+				<li class="nav-item"><a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="nav-link" href="#">Login</a></li>
+				<li class="nav-item"><a th:href="@{/about}" class="nav-link" href="#">About</a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+				<button class="btn btn-dark" type="submit">Logout</button>
+			</form>
+		</div>
+	</nav>
+</header>

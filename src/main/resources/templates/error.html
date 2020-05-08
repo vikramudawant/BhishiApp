@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>BhishiApp Dashboard</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	<div class="ml-4 mt-4">
+		You have got an error | <span th:text="${message}"></span> | <span th:text="${status}" class="text-danger"></span>
+		<p>Please contact <b>Vikram</b> if you reach too far here.!!!</p>
+	</div>
+		
+	</div>
+</body>
+</html>

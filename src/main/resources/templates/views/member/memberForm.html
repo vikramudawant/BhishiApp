@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<h3 class="mb-4 border-bottom pb-3">&star; Create/Update Member</h3>
+			<div class="alert alert-danger" th:if="${exist}">
+				<button class="close" data-dismiss="alert">&times;</button>
+				Member list is full for this Bhishi
+			</div>
+			<form action="" th:action="@{/addMember}" th:object="${member}" method="post" id="memberForm">
+				<input type="hidden" th:field="*{id}">
+				<div class="form-group row">
+					<label for="name" class="col-lg-3">Name</label>
+					<div class="col-lg-6">
+						<input type="text" th:field="*{name}" class="form-control" placeholder="Member's Name" />
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="mobile" class="col-lg-3">Mobile Number</label>
+					<div class="col-lg-6">
+						<input type="text" th:field="*{mobile}" class="form-control" placeholder="Mobile Number"/>
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('mobile')}" th:errors="*{mobile}" class="text-danger"></p>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="address" class="col-lg-3">Address</label>
+					<div class="col-lg-6">
+						<textarea class="form-control" th:field="*{address}" placeholder="Enter Address"></textarea>
+					</div>
+					<div class="col-lg-3">
+						<p th:if="#{fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></p>
+					</div>		
+				</div>
+				<div class="form-group row">
+					<label for="bhishiId" class="col-lg-3">Bhishi</label>
+					<div class="col-lg-6">
+						<select  class="form-control"  name="bhishiId" id="bhishiId">
+					      <option disabled="disabled" selected="selected" > -- select --</option>
+					      <option th:each="bhishi : ${bhishi}" th:value="${bhishi.id}" th:text="${bhishi.name}" ></option>
+					    </select>
+					</div>
+					<div class="col-lg-3">
+					</div>		
+				</div>
+				
+				
+				<div class="row">
+					<div class="offset-3 col-lg-6">
+						<input type="submit" value="Save" class="btn btn-primary">
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+#headerNavBar .nav-link{
+	font-size: 16px;
+}
+
+#headerNavBar .dropdown-menu .dropdown-item:hover{
+	background: #75BEF2;
+}
+
+.bhishi-card .card-body tr td{
+	width:50%; 
+	font-size:16px;
+}
+
+.dashboard a{
+	text-decoration:none;
+}

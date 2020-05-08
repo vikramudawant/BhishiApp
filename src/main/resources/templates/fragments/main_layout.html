@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div th:replace="fragments/header::header"></div>
+	
+	<div layout:fragment="content"></div>
+	
+	<div th:replace="fragments/footer::footer"></div>
+</body>
+
+</html>
+

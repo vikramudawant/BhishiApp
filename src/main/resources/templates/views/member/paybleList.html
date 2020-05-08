@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bhishi-App</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-3">
+			<form action="" th:action="@{/paybleList}" method="post">
+				<div class="form-group row">
+					<div class="col-lg-6"> 
+						<select class="form-control" name="bhishiId" id="bhishiId">
+							
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<input type="submit" value="Search" class="btn btn-primary">
+					</div>
+				</div>
+				
+			</form>
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered">
+					<thead class="bg-info text-white">
+						<tr>
+							<th>Sr. No.</th>
+							<th>Name</th>
+							<th>Mobile</th>
+							<th>Address</th>
+							<th>Rank</th>
+							<th>Payment Date</th>
+							<th>Payble Amount</th>
+							<th>Bhishi</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="member, count : ${members}">
+							<td th:text="${count.index+1}"></td>
+							<td th:text="${member.name}"></td>
+							<td th:text="${member.mobile}"></td>
+							<td th:text="${member.address}"></td>
+							<td th:text="${member.rank}"></td>
+							<td th:text="${member.paybleDate}"></td>
+							<td th:text="${member.bhishi.amountPerPerson * member.bhishi.noOfMembers}"></td>
+							<td th:text="${member.bhishi.name}"></td>
+							
+							<td>
+								<a th:href="@{updateMember(id=${member.id})}" class="btn btn-primary p-2">Edit</a>
+								<a th:href="@{deleteMember(id=${member.id})}" class="btn btn-danger p-2">Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
+<script>
+$.ajax({
+	"url":"/getMemberCompletedBhishi",
+	"type":"GET",
+	"success":function(data){
+		var list = "<option value=''>--Select Bhishi--</option>";
+		if(data){
+			for(var i=0; i< data.length; i++){
+				list += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+			}
+		}
+		$("#bhishiId").html(list);
+		/* console.log(list); */
+	}
+}); 
+</script>
